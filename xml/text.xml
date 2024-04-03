@@ -1,0 +1,8 @@
+<toast>
+	<visual>
+		<binding template='ToastImageAndText02'>
+			<text id='1'>Headline</text>
+			<text id='2'>body</text>
+		</binding>
+	</visual>
+</toast>

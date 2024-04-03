@@ -1,0 +1,7 @@
+<toast>
+								<visual>
+									<binding template="ToastImageAndText02">
+										<text id="3"></text>
+									<text id="1">[確認]</text><text id="2">Hello world!!</text><image src="S:\Visual Studio\02_バックグラウンドアプリ\MyRoutineApp\MyRoutineApp\bin\Debug\net8.0-windows10.0.19041.0\icons\info_notification.png" id="1"/></binding>
+								</visual>
+							</toast>

@@ -1,0 +1,10 @@
+<toast>
+	<visual>
+		<binding template='ToastImageAndText02'>
+			<image id='1'
+				src='S:\Visual Studio\02_バックグラウンドアプリ\MyRoutineApp\icons\infomation-notification.png' />
+			<text id='1'>Headline</text>
+			<text id='2'>Body</text>
+		</binding>
+	</visual>
+</toast>

@@ -27,9 +27,10 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppNotifyIcon));
 			notifyIcon = new NotifyIcon(components);
 			contextMenuStrip = new ContextMenuStrip(components);
-			toolStripMenuItem_Settings = new ToolStripMenuItem();
-			toolStripMenuItem_Exit = new ToolStripMenuItem();
 			toolStripMenuItem_Notification = new ToolStripMenuItem();
+			toolStripMenuItem_Settings = new ToolStripMenuItem();
+			toolStripSeparator1 = new ToolStripSeparator();
+			toolStripMenuItem_Exit = new ToolStripMenuItem();
 			contextMenuStrip.SuspendLayout();
 			// 
 			// notifyIcon
@@ -41,9 +42,15 @@
 			// 
 			// contextMenuStrip
 			// 
-			contextMenuStrip.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_Settings, toolStripMenuItem_Exit, toolStripMenuItem_Notification });
+			contextMenuStrip.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_Notification, toolStripMenuItem_Settings, toolStripSeparator1, toolStripMenuItem_Exit });
 			contextMenuStrip.Name = "contextMenuStrip";
-			contextMenuStrip.Size = new Size(99, 70);
+			contextMenuStrip.Size = new Size(99, 76);
+			// 
+			// toolStripMenuItem_Notification
+			// 
+			toolStripMenuItem_Notification.Name = "toolStripMenuItem_Notification";
+			toolStripMenuItem_Notification.Size = new Size(98, 22);
+			toolStripMenuItem_Notification.Text = "通知";
 			// 
 			// toolStripMenuItem_Settings
 			// 
@@ -51,17 +58,16 @@
 			toolStripMenuItem_Settings.Size = new Size(98, 22);
 			toolStripMenuItem_Settings.Text = "設定";
 			// 
+			// toolStripSeparator1
+			// 
+			toolStripSeparator1.Name = "toolStripSeparator1";
+			toolStripSeparator1.Size = new Size(95, 6);
+			// 
 			// toolStripMenuItem_Exit
 			// 
 			toolStripMenuItem_Exit.Name = "toolStripMenuItem_Exit";
 			toolStripMenuItem_Exit.Size = new Size(98, 22);
 			toolStripMenuItem_Exit.Text = "終了";
-			// 
-			// toolStripMenuItem_Notification
-			// 
-			toolStripMenuItem_Notification.Name = "toolStripMenuItem_Notification";
-			toolStripMenuItem_Notification.Size = new Size(98, 22);
-			toolStripMenuItem_Notification.Text = "通知";
 			contextMenuStrip.ResumeLayout(false);
 		}
 
@@ -72,5 +78,6 @@
 		private ToolStripMenuItem toolStripMenuItem_Settings;
 		private ToolStripMenuItem toolStripMenuItem_Exit;
 		private ToolStripMenuItem toolStripMenuItem_Notification;
+		private ToolStripSeparator toolStripSeparator1;
 	}
 }

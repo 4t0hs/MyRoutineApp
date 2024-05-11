@@ -2,23 +2,24 @@
 
 namespace MyRoutineApp.Application {
 	internal class Configuration {
+
 		private readonly JsonObject _elements;
 
 		public Configuration(JsonObject jsonObject) {
 			_elements = jsonObject;
 		}
-		public T get<T>(string key) {
+		public T Get<T>(string key) {
 			JsonNode node = _elements[key] ?? throw new KeyNotFoundException(key);
 			return node.GetValue<T>();
 		}
-		public T get<T>(string key, T defaultValue) {
+		public T Get<T>(string key, T defaultValue) {
 			JsonNode? node = _elements[key];
 			if (node == null) {
 				return defaultValue;
 			}
 			return node.AsObject().GetValue<T>();
 		}
-		public List<T> getList<T>(string key) {
+		public List<T> GetList<T>(string key) {
 			JsonNode node = _elements[key] ?? throw new KeyNotFoundException(key);
 			List<T> list = new List<T>();
 
@@ -29,25 +30,25 @@ namespace MyRoutineApp.Application {
 			}
 			return list;
 		}
-		public List<T> getList<T>(string key, List<T> defaultList) {
+		public List<T> GetList<T>(string key, List<T> defaultList) {
 			try {
-				return getList<T>(key);
+				return GetList<T>(key);
 			} catch {
 				return defaultList;
 			}
 		}
-		public T[] getArray<T>(string key) {
-			return getList<T>(key).ToArray();
+		public T[] GetArray<T>(string key) {
+			return GetList<T>(key).ToArray();
 		}
-		public T[] getArray<T>(string key, T[] defaultArray) {
+		public T[] GetArray<T>(string key, T[] defaultArray) {
 			try {
-				return getArray<T>(key);
+				return GetArray<T>(key);
 			} catch {
 				return defaultArray;
 			}
 		}
 
-		public Configuration getChild(string key) {
+		public Configuration GetChild(string key) {
 			JsonNode node = _elements[key] ?? throw new KeyNotFoundException();
 			return new Configuration(node.AsObject());
 		}

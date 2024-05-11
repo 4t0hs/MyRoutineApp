@@ -1,22 +1,26 @@
 ﻿namespace MyRoutineApp.Application {
 	internal partial class DebugConsole {
-		object lockObject = new object();
-		public Trace register(string name) {
-			return new Trace(name, new Printer(debug, info, error));
+
+		private object _lockObject = new object();
+
+		public Trace Register(string name) {
+			return new Trace(name, new Printer(Debug, Info, Error));
 		}
 
-		private void debug(string message) {
-			lock (lockObject) {
+		private void Debug(string message) {
+			lock (_lockObject) {
 				System.Diagnostics.Debug.WriteLine(message);
 			}
 		}
-		private void info(string message) {
-			lock (lockObject) {
+
+		private void Info(string message) {
+			lock (_lockObject) {
 				System.Diagnostics.Debug.WriteLine(message);
 			}
 		}
-		private void error(string message) {
-			lock (lockObject) {
+
+		private void Error(string message) {
+			lock (_lockObject) {
 				System.Diagnostics.Debug.WriteLine(message);
 			}
 		}

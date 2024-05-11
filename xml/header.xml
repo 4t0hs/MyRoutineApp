@@ -1,8 +1,0 @@
-<toast>
-	<header id='1' title='Header Title' arguments='args' />
-	<visual>
-		<binding template='ToastImageAndText02'>
-			<text id='1'>Simple text notification.</text>
-		</binding>
-	</visual>
-</toast>

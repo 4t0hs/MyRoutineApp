@@ -4,15 +4,24 @@ using System.Runtime.InteropServices;
 
 namespace MyRoutineApp.Process {
 	partial class NetworkDrive {
+
 		[StructLayout(LayoutKind.Sequential)]
 		private struct NETRESOURCE {
+
 			public int dwScope;
+
 			public int dwType;
+
 			public int dwDisplayType;
+
 			public int dwUsage;
+
 			public string lpLocalName;
+
 			public string lpRemoteName;
+
 			public string lpComment;
+
 			public string lpProvider;
 		}
 
@@ -40,26 +49,25 @@ namespace MyRoutineApp.Process {
 			int dwFlags
 		);
 	}
-	partial class NetworkDrive {
-		private readonly string _driveCharacter = string.Empty;
+	partial class NetworkDrive(string driveCharacter) {
 
-		public NetworkDrive(string driveCharacter) {
-			_driveCharacter = driveCharacter;
-		}
-		public void mount(string sharePath, string user, string password) {
+		private readonly string _driveCharacter = driveCharacter;
+
+		public void Mount(string sharePath, string user, string password) {
 			// 割り当て済みのネットワークドライブ
-			if (isAssigned()) {
+			if (IsAssigned()) {
 				throw new ArgumentException("Drive name is already assigned.");
 			}
-			NETRESOURCE netResource = new NETRESOURCE();
-			netResource.dwScope = 0;
-			netResource.dwType = 1;
-			netResource.dwDisplayType = 0;
-			netResource.dwUsage = 0;
-			netResource.lpLocalName = getDriveName();
-			netResource.lpRemoteName = sharePath;
-			netResource.lpComment = "";
-			netResource.lpProvider = "";
+			NETRESOURCE netResource = new NETRESOURCE() {
+				dwScope = 0,
+				dwType = 1,
+				dwDisplayType = 0,
+				dwUsage = 0,
+				lpLocalName = GetDriveName(),
+				lpRemoteName = sharePath,
+				lpComment = "",
+				lpProvider = "",
+			};
 
 			try {
 				int error = WNetAddConnection3(nint.Zero, ref netResource, user, password, 0);
@@ -70,21 +78,25 @@ namespace MyRoutineApp.Process {
 				throw new Exception(ex.Message);
 			}
 		}
-		public void unmount() {
+
+		public void Unmount() {
 			try {
-				int error = WNetCancelConnection2(getDriveName(), 0, true);
+				int error = WNetCancelConnection2(GetDriveName(), 0, true);
 				Debug.WriteLine($"WNetCancelConnection2: {error}");
 			} catch (Exception ex) {
 				throw new Exception(ex.Message);
 			}
 		}
-		public bool isMounted() {
+
+		public bool IsMounted() {
 			return false;
 		}
-		private string getDriveName() {
+
+		private string GetDriveName() {
 			return _driveCharacter + @":";
 		}
-		private bool isAssigned() {
+
+		private bool IsAssigned() {
 			string[] driveNames = Directory.GetLogicalDrives();
 
 			foreach (string driveName in driveNames) {

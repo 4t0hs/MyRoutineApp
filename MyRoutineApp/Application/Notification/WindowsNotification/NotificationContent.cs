@@ -2,82 +2,74 @@
 
 namespace MyRoutineApp.Application.Notification {
 	internal partial class WindowsNotification {
-		private class ComponentBuilder {
-			private XmlDocument _doc;
-			public ComponentBuilder(XmlDocument doc) {
-				_doc = doc;
-			}
-			public XmlElement createTitle(string title) {
-				XmlElement element = createElement("text");
+		private class NotificationComponent(XmlDocument doc) {
+
+			private XmlDocument _doc = doc;
+
+			public XmlElement CreateTitle(string title) {
+				XmlElement element = CreateElement("text");
 				element.SetAttribute("id", "1");
 				element.InnerText = title;
 				return element;
 			}
-			public XmlElement createBody(string text) {
-				XmlElement element = createElement("text");
+
+			public XmlElement CreateBody(string text) {
+				XmlElement element = CreateElement("text");
 				element.SetAttribute("id", "2");
 				element.InnerText = text;
 				return element;
 			}
-			public XmlElement createImage(string src) {
-				XmlElement image = createElement("image");
+
+			public XmlElement CreateImage(string src) {
+				XmlElement image = CreateElement("image");
 				image.SetAttribute("src", src);
 				image.SetAttribute("id", "1");
 				return image;
 			}
-			private XmlElement createElement(string name) {
+
+			private XmlElement CreateElement(string name) {
 				return _doc.CreateElement(name);
 			}
 		}
 		public class NotificationContent {
+
 			public XmlDocument document = new XmlDocument();
-			private ComponentBuilder _componentBuilder;
+
+			private readonly NotificationComponent _component;
+
 			public NotificationContent() {
-				initialize();
+				document.LoadXml(Template);
+				_component = new NotificationComponent(document);
 			}
-			public NotificationContent(string title) {
-				initialize();
 
-				addTitle(title);
+			public void AddTitle(string title) {
+				AddBindingChild(_component.CreateTitle(title));
 			}
-			public NotificationContent(string title, params string[] messages) {
-				initialize();
 
-				addTitle(title);
-				addBody(messages);
-			}
-			public NotificationContent(string title, string imagePath, params string[] messages) {
-				initialize();
-
-				addTitle(title);
-				addBody(messages);
-				addImage(imagePath);
-			}
-			private void initialize() {
-				document.LoadXml(template);
-				_componentBuilder = new ComponentBuilder(document);
-			}
-			public void addTitle(string title) {
-				addBindingChild(_componentBuilder.createTitle(title));
-			}
-			public void addBody(params string[] messages) {
+			public void AddBody(params string[] messages) {
 				string text = string.Join(Environment.NewLine, messages);
-				addBindingChild(_componentBuilder.createBody(text));
+				AddBindingChild(_component.CreateBody(text));
 			}
-			public void addImage(string src) {
-				addBindingChild(_componentBuilder.createImage(src));
+
+			public void AddImage(string src) {
+				AddBindingChild(_component.CreateImage(src));
 			}
-			private void addBindingChild(XmlElement childElement) {
-				getBinding().AppendChild(childElement);
+
+			private void AddBindingChild(XmlElement childElement) {
+				GetBinding().AppendChild(childElement);
 			}
-			private XmlElement getBinding() {
-				return getElementFirst("binding");
+
+			private XmlElement GetBinding() {
+				return GetElementFirst("binding");
 			}
-			private XmlElement getElementFirst(string name) {
-				XmlElement element = document.GetElementsByTagName(name).First() as XmlElement ?? throw new NullReferenceException();
+
+			private XmlElement GetElementFirst(string name) {
+				XmlElement element = document.GetElementsByTagName(name).First() as XmlElement
+					?? throw new NullReferenceException();
 				return element;
 			}
-			private string template {
+
+			private static string Template {
 				get {
 					return @"
 							<toast>

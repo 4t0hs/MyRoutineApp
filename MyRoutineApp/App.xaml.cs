@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MyRoutineApp.Process;
+using System.Windows;
 
 
 namespace MyRoutineApp {
@@ -6,18 +7,23 @@ namespace MyRoutineApp {
 	/// Interaction logic for App.xaml
 	/// </summary>
 	public partial class App : System.Windows.Application {
-		private AppNotifyIcon? appNotifyIcon;
+
+		private AppNotifyIcon? _appNotifyIcon;
+
+		private ProcessControler _controler;
+
+		public App() {
+			_controler = new ProcessControler(this);
+		}
+
 		protected override void OnStartup(StartupEventArgs e) {
 			// プロセス通常起動
 			base.OnStartup(e);
-			appNotifyIcon = new AppNotifyIcon();
-			Application.Application app = new Application.Application();
-			app.notification.infomation("Hello world!!");
-			app.notification.error("おはよう、世界！！");
+			_appNotifyIcon = new AppNotifyIcon();
 		}
-		protected override void OnExit(ExitEventArgs e) {
 
-			appNotifyIcon?.Dispose();
+		protected override void OnExit(ExitEventArgs e) {
+			_appNotifyIcon?.Dispose();
 			base.OnExit(e);
 		}
 	}

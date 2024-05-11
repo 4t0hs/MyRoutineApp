@@ -2,8 +2,11 @@
 
 namespace MyRoutineApp.Application {
 	internal class Command {
+
 		public string output { get; private set; } = string.Empty;
+
 		public int exitCode { get; private set; } = -1;
+
 		private readonly string _command = string.Empty;
 
 		public Command(string command) {
@@ -13,8 +16,8 @@ namespace MyRoutineApp.Application {
 			_command = $"{command} {string.Join(" ", arguments)}";
 		}
 
-		public bool execute() {
-			System.Diagnostics.ProcessStartInfo startInfo = prepare();
+		public bool Execute() {
+			System.Diagnostics.ProcessStartInfo startInfo = Prepare();
 			System.Diagnostics.Process? process = System.Diagnostics.Process.Start(startInfo);
 			if (process == null) {
 				return false;
@@ -27,7 +30,7 @@ namespace MyRoutineApp.Application {
 			return true;
 		}
 
-		private System.Diagnostics.ProcessStartInfo prepare() {
+		private System.Diagnostics.ProcessStartInfo Prepare() {
 			return new System.Diagnostics.ProcessStartInfo() {
 				FileName = "cmd",
 				Arguments = "/c " + _command,

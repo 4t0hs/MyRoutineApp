@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="MyRoutineApp.Windows.SettingWindow.Views.ProcessSettingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyRoutineApp.Windows.SettingWindow.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="750"
+             d:DesignWidth="650"
+             d:FontFamily="メイリオ"
+             d:FontWeight="Bold"
+             d:Background="#2A2B35"
+             d:Foreground="#F2FFFF">
+  
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../SettingWindowDictionary.xaml"/>
+        <ResourceDictionary Source="../../ColorsDictionary.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <!--プロセスの設定-->
+  <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+    <StackPanel Name="processSettingStackPanel" Orientation="Vertical" Width="Auto">
+      <!--SVN-->
+      <Label Style="{StaticResource SectionLabel}" Content="SVN"/>
+      <Label Style="{StaticResource TitleLabel}" Content="チェックアウトするディレクトリ"/>
+      <TextBox Style="{StaticResource MultilineTextbox}"
+               x:Name="checkuotDirectories"
+               Width="300" />
+      <!--ネットワークドライブ-->
+      <Label Style="{StaticResource SectionLabel}" Content="Network Drive"/>
+      
+      <Label Style="{StaticResource TitleLabel}" Content="共有パス" />
+      <TextBox Style="{StaticResource SimpleTextbox}"
+               x:Name="sharedPath"
+               Width="350" />
+      
+      <Label Style="{StaticResource TitleLabel}" Content="ドライブラベル" />
+      <Label Style="{StaticResource DesctiptionLabel}" Content="例: A" />
+      <TextBox Style="{StaticResource SimpleTextbox}"
+               x:Name="driveName"
+               Width="25"
+               Padding="1,0,0,0" />
+
+      <Label Style="{StaticResource TitleLabel}" Content="ユーザー名" />
+      <TextBox Style="{StaticResource SimpleTextbox}"
+               x:Name="userName"
+               Width="200" />
+
+      <Label Style="{StaticResource TitleLabel}" Content="パスワード" />
+      <TextBox Style="{StaticResource SimpleTextbox}"
+               x:Name="password"
+               Width="200" />
+    </StackPanel>
+  </ScrollViewer>
+
+</UserControl>
